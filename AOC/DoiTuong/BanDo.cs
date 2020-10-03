@@ -9,20 +9,28 @@ namespace AOC.DoiTuong
 {
     class BanDo
     {
+        public static bool IsChange = false;
         public static List<ThanhPho> DanhSachThanhPho { get; private set; }
         public static List<Point> DSToaDoThanhPho { get; private set; }
-       // static int _soThanhPho;
+        public static double[,] MaTranKhoangCach { get; private set; }
+        // static int _soThanhPho;
+
+        public static void Reset()
+        {
+            DanhSachThanhPho.Clear();
+            DSToaDoThanhPho.Clear();
+            IsChange = false;
+        }
 
         public static int SoThanhPho
         {
             get { return DanhSachThanhPho.Count; }
            // private set { _soThanhPho = value; }
         }
-        public static double[,] MaTranKhoangCach { get; private set; }
+
        // public double Cnn { get; private set; }
         public static void KhoiTao(List<Point> MangToaDo)
         {
-
             DanhSachThanhPho = KhoiTaoThanhPho(MangToaDo) ;
             DSToaDoThanhPho = MangToaDo;
             KhoiTaoKhoangCach();
