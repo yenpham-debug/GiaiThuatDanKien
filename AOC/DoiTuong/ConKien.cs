@@ -92,6 +92,7 @@ namespace AOC.DoiTuong
                     }
 
                     int indexChon = 0;
+                    // TongXaxSuat ~ 1
                     double prob  = CacThongSo.BoSinhSoNgauNhien.NextDouble()*TongXacXuat;
                     double p = XacXuatChonDinhTiepTheo(DSThanhPhoChuaQua[indexChon].ID);
                     while (p > prob && indexChon< DSThanhPhoChuaQua.Count-1)
