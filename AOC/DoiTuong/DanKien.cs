@@ -11,6 +11,7 @@ namespace AOC.DoiTuong
         public static double[,] MaTranMui { get; private set; }
         public List<ConKien> DSDanKien { get; private set; }
         public double QuangDuongNganNhat { get; private set; }
+        public int SoVongLapTotNhat { get; private set; }
         public List<ThanhPho> HanhTrinhNganNhat { get; private set; }                
         public DanKien()
         {
@@ -26,6 +27,13 @@ namespace AOC.DoiTuong
             //    DSDanKien.Add(kien);
             //}
         }
+        public void Reset()
+        {
+            DSDanKien.Clear();
+            QuangDuongNganNhat = Double.MaxValue;
+            HanhTrinhNganNhat.Clear();
+        }
+
         private void TaoDanKien()
         {
             DSDanKien = new List<ConKien>();
@@ -54,51 +62,63 @@ namespace AOC.DoiTuong
         {
             DungLai = true;
         }
+        public void YeuCauTiepTuc()
+        {
+            DungLai = false;
+        }
         public void ChayDanKien()
         {
-
-            //ConKien conKienTimDuongNganNhat;;// = DSDanKien[0];
-            //QuangDuongNganNhat = conKienTimDuongNganNhat.TongDuongDi;
-            //string Hanh = "";
-            double preNN = Double.MaxValue;
-            int countKoThayDoi = 100;
-            while (!DungLai)
+            try
             {
-                VongLapHienTai++;
-                TaoDanKien();
-                //conKienTimDuongNganNhat= DSDanKien[0];
-                for (int i = 0; i < CacThongSo.SoLuongKien; i++)
+                while (!DungLai)
                 {
-                    DSDanKien[i].TimDuong();
-                    if (DSDanKien[i].TongDuongDi < QuangDuongNganNhat)
+                    VongLapHienTai++;
+                    TaoDanKien();
+                    //conKienTimDuongNganNhat= DSDanKien[0];
+                    for (int i = 0; i < CacThongSo.SoLuongKien; i++)
                     {
-                        QuangDuongNganNhat = DSDanKien[i].TongDuongDi;
-                        HanhTrinhNganNhat = DSDanKien[i].HanhTrinh;
-                        //conKienTimDuongNganNhat = DSDanKien[i];
-                        //Hanh = "";
-                        //foreach (var tp in HanhTrinhNganNhat)
-                        //{
-                        //    Hanh += tp.ID + "->";
-                        //}
+                        if (DungLai)
+                            return;
+                        DSDanKien[i].TimDuong();
+                        if (DSDanKien[i].TongDuongDi < QuangDuongNganNhat)
+                        {
+                            SoVongLapTotNhat = VongLapHienTai;
+                            QuangDuongNganNhat = DSDanKien[i].TongDuongDi;
+                            HanhTrinhNganNhat = DSDanKien[i].HanhTrinh;
+                            //conKienTimDuongNganNhat = DSDanKien[i];
+                            //Hanh = "";
+                            //foreach (var tp in HanhTrinhNganNhat)
+                            //{
+                            //    Hanh += tp.ID + "->";
+                            //}
+                        }
                     }
+                    // HanhTrinhNganNhat = //conKienTimDuongNganNhat.HanhTrinh;
+
+                    CapNhatMui(QuangDuongNganNhat, HanhTrinhNganNhat);
+                    //if (QuangDuongNganNhat < preNN)
+                    //{
+                    //    preNN = QuangDuongNganNhat;
+                    //}
+                    //else
+                    //{
+                    //    countKoThayDoi--;
+                    //    if (countKoThayDoi == 0)
+                    //    {
+                    //        DungLai = true;
+                    //    }
+
+                    //}
                 }
-               // HanhTrinhNganNhat = //conKienTimDuongNganNhat.HanhTrinh;
-                
-                CapNhatMui( QuangDuongNganNhat, HanhTrinhNganNhat);
-                if (QuangDuongNganNhat < preNN)
+            }
+            catch (Exception ex)
+            {
+                if (!DungLai)
                 {
-                    preNN = QuangDuongNganNhat;
-                }
-                else
-                {
-                    countKoThayDoi--;
-                    if (countKoThayDoi == 0)
-                    {
-                        DungLai = true;
-                    }
 
                 }
             }
+            
         }
         public void CapNhatMui(double TongDuongDi, List<ThanhPho> HanhTrinh)//ConKien conKienTotNhat)
         {

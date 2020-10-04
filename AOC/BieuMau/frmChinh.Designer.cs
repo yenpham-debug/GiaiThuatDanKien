@@ -63,6 +63,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnChay = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.ofdMoFile = new System.Windows.Forms.OpenFileDialog();
             this.timDongHo = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -200,6 +201,7 @@
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Controls.Add(this.btnChay);
+            this.panel2.Controls.Add(this.btnExport);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
@@ -213,7 +215,7 @@
             this.btnDung.Name = "btnDung";
             this.btnDung.Size = new System.Drawing.Size(116, 31);
             this.btnDung.TabIndex = 7;
-            this.btnDung.Text = "Dừng";
+            this.btnDung.Text = "Continue";
             this.btnDung.UseVisualStyleBackColor = true;
             this.btnDung.Click += new System.EventHandler(this.btnDung_Click);
             // 
@@ -477,9 +479,20 @@
             this.btnChay.Name = "btnChay";
             this.btnChay.Size = new System.Drawing.Size(118, 32);
             this.btnChay.TabIndex = 4;
-            this.btnChay.Text = "Chạy";
+            this.btnChay.Text = "Run";
             this.btnChay.UseVisualStyleBackColor = true;
             this.btnChay.Click += new System.EventHandler(this.btnChay_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(12, 513);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(118, 32);
+            this.btnExport.TabIndex = 20;
+            this.btnExport.Enabled = false;
+            this.btnExport.Text = "Export Data";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // ofdMoFile
             // 
@@ -495,11 +508,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 508);
+            this.ClientSize = new System.Drawing.Size(720, 560);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Name = "frmChinh";
             this.Text = "Thuật toán AOC - Bài toán du lịch";
             this.Load += new System.EventHandler(this.frmChinh_Load);
@@ -555,6 +569,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnChay;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.NumericUpDown numXacXuatChon;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.OpenFileDialog ofdMoFile;

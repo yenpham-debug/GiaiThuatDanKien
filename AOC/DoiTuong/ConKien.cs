@@ -40,56 +40,59 @@ namespace AOC.DoiTuong
         private void TimThanhPhoTiepTheo()
         {
             ThanhPho TPTiepTheo;
-            if (HanhTrinh.Count == BanDo.SoThanhPho)
-            {
-                TPTiepTheo= ThanhPhoXuatPhat;
-                // het thanh pho , tro ve thoi
-               
-            }
-            else
-            {
-                double q=CacThongSo.BoSinhSoNgauNhien.NextDouble();
-                LayDSThanhPhoChuaToi();
-                if (q < CacThongSo.SacXuatChon)
-                {
-                    
-                    double Nij = 0;// ThanhPhoHienTai.KhoangCach(DSThanhPhoChuaQua[0]);
-                    double pMax = 0;// DanKien.MaTranMui[ThanhPhoHienTai.ID, DSThanhPhoChuaQua[0].ID] * Math.Pow(Nij, CacThongSo.Belta);
-                    double pij = 0;
-                    int indexMax = 0;
-                    for (int i = 0; i < DSThanhPhoChuaQua.Count; i++)
-                    {
-                        Nij = ThanhPhoHienTai.KhoangCach(DSThanhPhoChuaQua[i]);
-                        pij = DanKien.MaTranMui[ThanhPhoHienTai.ID, DSThanhPhoChuaQua[i].ID] * Math.Pow(Nij, CacThongSo.Belta);
-                        if (i == 0)
-                            pMax = pij;
-                        else
-                        {
-                            if (pij > pMax)
-                            {
-                                pMax = pij;
-                                indexMax = i;
-                            }
-                        }
-                    }
 
-                    TPTiepTheo = DSThanhPhoChuaQua[indexMax];
+            try
+            {
+                if (HanhTrinh.Count == BanDo.SoThanhPho)
+                {
+                    TPTiepTheo = ThanhPhoXuatPhat;
+                    // het thanh pho , tro ve thoi
+
                 }
                 else
                 {
-                    //double prob = Math.random() * sumProb;
-                    //j = 0;
-                    //double p = selectionProbability[j];
-                    //while (p < prob)
-                    //{
-                    //    j++;
-                    //    p += selectionProbability[j];
-                    //}
-                    double TongXacXuat = 0;
-                    foreach (var tp in DSThanhPhoChuaQua)
+                    double q = CacThongSo.BoSinhSoNgauNhien.NextDouble();
+                    LayDSThanhPhoChuaToi();
+                    if (q < CacThongSo.SacXuatChon)
                     {
-                        TongXacXuat += XacXuatChonDinhTiepTheo(tp.ID);
+
+                        double Nij = 0;// ThanhPhoHienTai.KhoangCach(DSThanhPhoChuaQua[0]);
+                        double pMax = 0;// DanKien.MaTranMui[ThanhPhoHienTai.ID, DSThanhPhoChuaQua[0].ID] * Math.Pow(Nij, CacThongSo.Belta);
+                        double pij = 0;
+                        int indexMax = 0;
+                        for (int i = 0; i < DSThanhPhoChuaQua.Count; i++)
+                        {
+                            Nij = ThanhPhoHienTai.KhoangCach(DSThanhPhoChuaQua[i]);
+                            pij = DanKien.MaTranMui[ThanhPhoHienTai.ID, DSThanhPhoChuaQua[i].ID] * Math.Pow(Nij, CacThongSo.Belta);
+                            if (i == 0)
+                                pMax = pij;
+                            else
+                            {
+                                if (pij > pMax)
+                                {
+                                    pMax = pij;
+                                    indexMax = i;
+                                }
+                            }
+                        }
+
+                        TPTiepTheo = DSThanhPhoChuaQua[indexMax];
                     }
+                    else
+                    {
+                        //double prob = Math.random() * sumProb;
+                        //j = 0;
+                        //double p = selectionProbability[j];
+                        //while (p < prob)
+                        //{
+                        //    j++;
+                        //    p += selectionProbability[j];
+                        //}
+                        double TongXacXuat = 0;
+                        foreach (var tp in DSThanhPhoChuaQua)
+                        {
+                            TongXacXuat += XacXuatChonDinhTiepTheo(tp.ID);
+                        }
 
                     int indexChon = 0;
                     // TongXaxSuat ~ 1
@@ -101,12 +104,19 @@ namespace AOC.DoiTuong
                         p += XacXuatChonDinhTiepTheo(DSThanhPhoChuaQua[indexChon].ID);                       
                     }
 
-                    TPTiepTheo = DSThanhPhoChuaQua[(indexChon<DSThanhPhoChuaQua.Count?indexChon:indexChon-1)];
+                        TPTiepTheo = DSThanhPhoChuaQua[(indexChon < DSThanhPhoChuaQua.Count ? indexChon : indexChon - 1)];
+                    }
                 }
+                HanhTrinh.Add(TPTiepTheo);
+                TongDuongDi += ThanhPhoHienTai.KhoangCach(TPTiepTheo);
+                ThanhPhoHienTai = HanhTrinh[HanhTrinh.Count - 1];
             }
-           HanhTrinh.Add(TPTiepTheo);
-           TongDuongDi += ThanhPhoHienTai.KhoangCach(TPTiepTheo);
-           ThanhPhoHienTai = HanhTrinh[HanhTrinh.Count - 1];
+            catch (Exception ex) 
+            {
+
+                throw ex;
+            }
+            
         }
 
         public void TimDuong()
@@ -119,13 +129,22 @@ namespace AOC.DoiTuong
 
         private double XacXuatChonDinhTiepTheo( int j)
         {
-            double TuSo = BanDo.TyLeHaiThanhPho(ThanhPhoHienTai.ID, j);
-            double MauSo = 0;
-            foreach (var tp in DSThanhPhoChuaQua)
+            try
             {
-                MauSo += BanDo.TyLeHaiThanhPho(ThanhPhoHienTai.ID, tp.ID);
+                double TuSo = BanDo.TyLeHaiThanhPho(ThanhPhoHienTai.ID, j);
+                double MauSo = 0;
+                foreach (var tp in DSThanhPhoChuaQua)
+                {
+                    MauSo += BanDo.TyLeHaiThanhPho(ThanhPhoHienTai.ID, tp.ID);
+                }
+                return TuSo / MauSo;
             }
-            return TuSo / MauSo;
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
         
     }
